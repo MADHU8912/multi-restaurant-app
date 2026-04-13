@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multi Restaurant Food App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #fff8f2;
+      color: #222;
+    }
+
+    header {
+      background: #8b1e1e;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .restaurant-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .menu {
+      margin-top: 30px;
+    }
+
+    .menu-item {
+      background: white;
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    button {
+      background: #d35400;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #a84300;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Multi Restaurant Food Platform</h1>
+    <p>Browse restaurants and food menus</p>
+  </header>
+
+  <div class="container">
+    <h2>Restaurants</h2>
+    <div class="restaurant-grid" id="restaurantGrid"></div>
+
+    <div class="menu">
+      <h2 id="menuTitle">Menu</h2>
+      <div id="menuList"></div>
+    </div>
+  </div>
+
+  <script>
+    const apiBase = "http://localhost:5000/api";
+
+    async function loadRestaurants() {
+      const res = await fetch(`${apiBase}/restaurants`);
+      const restaurants = await res.json();
+
+      const grid = document.getElementById("restaurantGrid");
+      grid.innerHTML = "";
+
+      restaurants.forEach(restaurant => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h3>${restaurant.name}</h3>
+          <p>${restaurant.cuisine}</p>
+          <button onclick="loadMenu(${restaurant.id}, '${restaurant.name}')">View Menu</button>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    async function loadMenu(id, name) {
+      const res = await fetch(`${apiBase}/restaurants/${id}/menu`);
+      const menu = await res.json();
+
+      document.getElementById("menuTitle").innerText = `${name} Menu`;
+
+      const menuList = document.getElementById("menuList");
+      menuList.innerHTML = "";
+
+      menu.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "menu-item";
+        div.innerHTML = `
+          <h4>${item.name}</h4>
+          <p>Category: ${item.category}</p>
+          <p>Price: ₹${item.price}</p>
+        `;
+        menuList.appendChild(div);
+      });
+    }
+
+    loadRestaurants();
+  </script>
+</body>
+</html>
