@@ -7,6 +7,7 @@ pipeline {
                 bat 'dir'
                 bat 'dir frontend'
                 bat 'dir backend'
+                bat 'dir admin'
             }
         }
 
@@ -32,6 +33,15 @@ pipeline {
             steps {
                 bat 'docker ps'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Multi-restaurant app deployed successfully'
+        }
+        failure {
+            echo 'Build failed'
         }
     }
 }

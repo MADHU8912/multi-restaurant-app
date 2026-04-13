@@ -16,3 +16,18 @@ services:
       - "8082:80"
     depends_on:
       - backend
+
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    container_name: multi-food-admin
+    ports:
+      - "8083:80"
+    depends_on:
+      - backend
+        db:
+    image: mongo:6
+    container_name: multi-food-db
+    ports:
+      - "27017:27017"

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f4ef;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      width: 320px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    input, button {
+      width: 100%;
+      margin-top: 12px;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    button {
+      background: #8b1e1e;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #msg {
+      margin-top: 12px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Restaurant Admin Login</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <p id="msg"></p>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
