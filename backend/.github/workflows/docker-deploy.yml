@@ -1,0 +1,46 @@
+name: Multi Restaurant App CI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-run:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Show Docker version
+        shell: powershell
+        run: |
+          docker --version
+          docker compose version
+
+      - name: Stop old containers
+        shell: powershell
+        run: |
+          docker compose down || exit 0
+
+      - name: Build Docker images
+        shell: powershell
+        run: |
+          docker compose build
+
+      - name: Run containers
+        shell: powershell
+        run: |
+          docker compose up -d
+
+      - name: Check running containers
+        shell: powershell
+        run: |
+          docker ps
+
+      - name: Success message
+        shell: powershell
+        run: |
+          Write-Host "Build and deployment completed successfully."
