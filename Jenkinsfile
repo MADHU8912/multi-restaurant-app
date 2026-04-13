@@ -2,38 +2,36 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('Check Files') {
             steps {
-                echo 'Using local project files or GitHub repo'
+                bat 'dir'
+                bat 'dir frontend'
+                bat 'dir backend'
             }
         }
 
-        stage('Build Docker Images') {
+        stage('Docker Compose Down') {
             steps {
-                bat 'docker-compose down || exit 0'
-                bat 'docker-compose build'
+                bat 'docker compose down || exit /b 0'
             }
         }
 
-        stage('Run Containers') {
+        stage('Docker Compose Build') {
             steps {
-                bat 'docker-compose up -d'
+                bat 'docker compose build'
             }
         }
 
-        stage('Check Containers') {
+        stage('Docker Compose Up') {
+            steps {
+                bat 'docker compose up -d'
+            }
+        }
+
+        stage('Check Running Containers') {
             steps {
                 bat 'docker ps'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build and deployment completed successfully.'
-        }
-        failure {
-            echo 'Pipeline failed.'
         }
     }
 }

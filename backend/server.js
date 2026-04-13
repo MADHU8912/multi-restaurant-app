@@ -9,7 +9,8 @@ const restaurants = [
   { id: 1, name: "Waff-Wich", cuisine: "Waffles and Desserts" },
   { id: 2, name: "Pizza Hub", cuisine: "Pizza and Pasta" },
   { id: 3, name: "Burger Point", cuisine: "Burgers and Fries" },
-  { id: 4, name: "Noodle House", cuisine: "Noodles and Soup" }
+  { id: 4, name: "Noodle House", cuisine: "Noodles and Soup" },
+  { id: 5, name: "Biryani Palace", cuisine: "Biryani and Rice" }
 ];
 
 const menuItems = [
@@ -20,7 +21,8 @@ const menuItems = [
   { id: 5, restaurant_id: 3, name: "Chicken Burger", category: "Burger", price: 180 },
   { id: 6, restaurant_id: 3, name: "French Fries", category: "Snacks", price: 120 },
   { id: 7, restaurant_id: 4, name: "Chicken Noodles", category: "Noodles", price: 199 },
-  { id: 8, restaurant_id: 4, name: "Hot Soup", category: "Soup", price: 140 }
+  { id: 8, restaurant_id: 4, name: "Hot Soup", category: "Soup", price: 140 },
+  { id: 9, restaurant_id: 5, name: "Chicken Biryani", category: "Biryani", price: 280 }
 ];
 
 app.get("/api/restaurants", (req, res) => {
